@@ -1,0 +1,154 @@
+Mavens:
+
+$sudo apt update
+$sudo apt install maven
+$mvn --version 
+$mkdir csm
+$cd csm
+$sudo apt install tree
+$tree
+--->no tree Found
+$mvn archetype:generate
+--->enter same number as shown
+--->choose a number
+--->group_id=com.Hello
+--->artifactid=csmdevops
+--->version.1.0-SNAPSHOT=1.0-SNAPSHOT
+--->package=com.Hello.app
+$tree
+--->Can Find Tree Structure
+$cd csmdevops
+$mvn validate
+$mvn compile
+$mvn Test
+$mvn verify
+$mvn install
+$tree
+--->Tree Structure
+$cd target
+$java -cp csmdevops-1.0-SNAPSHOT.jar com.Hello.app.App
+
+********************************************************************************
+Ansible:
+
+$sudo apt update
+$sudo apt install ansible
+$ansible --version
+$mkdir ~/ansibe
+$cd ~/ansible
+$touch host.ini
+$nono host.ini (or $gedit host.ini)
+---->[local]
+---->localhost ansible_connection=local
+
+(save it and exit)
+
+$touch local_playbook.yml
+$nano local_playbook.yml   (or gedit local_playbook.yml)
+
+(very important indentation)
+
+---
+-name: Install Nginx on Local Machine
+  hosts: local
+  become: yes
+  tasks:
+    - name: Ensure Nginx in installed
+      apt:
+        name: nginx
+        state: present
+
+(save and close it)
+
+$ansible -playbook -i hosts.ini local_playbook.yml --ask-become-pass
+
+$systemctl status nginx
+$echo "Hello Wolrd" | sudo tee /var/www/html/index.html
+$sudo nano /etc/nginx/sites-available/default
+$sudo systemctl restart nginx
+
+http://localhost
+
+************************************************************************************
+Docker with Ansible:
+
+
+$sudo apt update
+$sudo apt install ansible
+$ansible --version
+$mkdir ~/ansible
+$cd ~/ansible
+$touch host.ini
+$nono host.ini (or $gedit host.ini)
+-->[local]
+-->localhost ansible_connection=local
+
+(save and close)
+
+$touch local_playbook.yml
+$nano local_playbook.yml   (or gedit local_playbook.yml)
+
+(very important indentation)
+
+
+---
+-name: Install Docker on Local Machine
+  hosts: local
+  become: yes
+  tasks:
+    - name: Ensure docker in installed
+      apt:
+        name: docker.io
+	state: present
+	update_cache: yes
+
+(save it and close)
+
+$ansible -playbook -i host.ini local_playbook.yml --ask-become-pass
+$systemctl status docker
+
+$docker --version
+$echo "Hello Wolrd" | sudo tee /var/www/html/index.html
+$sudo nano /etc/nginx/sites-available/default
+$sudo systemctl restart docker
+
+http://localhost
+
+***************************************************************************************
+Git Commands:
+
+$cd ..........
+(to the req folder)
+
+$git init
+$git add "Filename.extension"
+$git commit -m "something"
+$git remote add origin <repository link>
+$git push -u origin main
+$git remote set -url <token+repolink>
+***************************************************************************************
+Jenkins:
+
+http://localhost:8080
+create a job 
+enter item name
+select free style
+in source code management select git paste repository link
+change branch from */master to */main
+trigger--->build periodically
+or --->poll scm 
+
+1.build periodically
+->schedule type "*****"
+->save
+2.select build now
+3.after every 1-2 min testcases are updated..
+
+2.poll scm 
+1.build periodically
+->schedule type "*****"
+->save
+2.select build now
+3.add a file into your git repo
+4.after every 1-2 min testcases are updated..
+***************************************************************************************
