@@ -99,8 +99,8 @@ $nano local_playbook.yml   (or gedit local_playbook.yml)
     - name: Ensure docker in installed
       apt:
         name: docker.io
-	state: present
-	update_cache: yes
+		state: present
+		update_cache: yes
 
 (save it and close)
 
